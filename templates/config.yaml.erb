@@ -1,0 +1,12 @@
+dir: <%= @dir %>
+cmd_sign: <%= @cmd_sign %>
+logfile: <%= @logfile %>
+credentials:
+<% YAML.dump(@credentials).sub(/.*?\n/, '').split("\n").each do |line| -%>
+  <%= line %>
+<% end -%>
+<% if @preshared_keys.length %>preshared_keys:
+  <%- @preshared_keys.each do |psk| -%>
+  - <%= psk %>
+  <%- end -%>
+<%- end %>

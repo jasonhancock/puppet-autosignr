@@ -1,0 +1,15 @@
+{
+  "name": "jasonhancock-autosignr",
+  "version": "1.0.0",
+  "author": "Jason Hancock",
+  "summary": "Installs and configures Autosignr",
+  "license": "Apache-2.0",
+  "source": "https://github.com/jasonhancock/puppet-autosignr",
+  "project_page": "https://github.com/jasonhancock/puppet-autosignr",
+  "issues_url": "https://github.com/jasonhancock/puppet-autosignr/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
