@@ -18,8 +18,8 @@
 # * `logfile`
 # What file to log to. Defaults to `/var/log/autosignr/autosignr.log`.
 #
-# * `credentials`
-# An array of credentials. See example below
+# * `accounts_aws`
+# An array of AWS credentials. See example below
 #
 # * `preshared_keys`
 # An array of preshared keys. This is optional and will be omitted from the
@@ -31,12 +31,11 @@
 # @example
 #    class { 'autosignr':
 #      preshared_keys => ['psk_1', 'psk_1'],
-#      credentials    => [
+#      accounts_aws   => [
 #        {
-#          name => 'Amazon Account 1',
-#          type => 'aws',
-#          key_id => 'AWS_KEY_ID',
-#          secret_key => 'AWS_SECRET_KEY',
+#          name    => 'Amazon Account 1',
+#          key     => 'AWS_KEY_ID',
+#          secret  => 'AWS_SECRET_KEY',
 #          regions => ['us-west-2', 'us-east-1'],
 #        }
 #    }
@@ -55,7 +54,7 @@ class autosignr (
   $dir = '/etc/puppetlabs/puppet/ssl/ca/requests',
   $cmd_sign = '/opt/puppetlabs/bin/puppet cert sign %s',
   $logfile = '/var/log/autosignr/autosignr.log',
-  $credentials = [],
+  $accounts_aws = [],
   $preshared_keys = [],
 ) {
 

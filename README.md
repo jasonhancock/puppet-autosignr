@@ -30,8 +30,8 @@ need to provide a repository that contains the autosignr package.
 ##### `logfile`
   What file to log to. Defaults to `/var/log/autosignr/autosignr.log`.
 
-##### `credentials`
-  An array of credentials. See example below
+##### `accounts_aws`
+  An array of AWS credentials. See example below
 
 ##### `preshared_keys`
   An array of preshared keys. This is optional and will be omitted from the
@@ -42,13 +42,12 @@ need to provide a repository that contains the autosignr package.
 ~~~puppet
 class { 'autosignr':
   preshared_keys => ['psk_1', 'psk_1'],
-  credentials    => [
+  accounts_aws   => [
     {
-      name => 'Amazon Account 1',
-      type => 'aws',
-      key_id => 'AWS_KEY_ID',
+      name       => 'Amazon Account 1',
+      key_id     => 'AWS_KEY_ID',
       secret_key => 'AWS_SECRET_KEY',
-      regions => ['us-west-2', 'us-east-1'],
+      regions    => ['us-west-2', 'us-east-1'],
     }
 }
 ~~~
@@ -56,10 +55,9 @@ class { 'autosignr':
 Or specify the configuration in Hiera (and use eyaml for encrypting secrets):
 
 ~~~yaml
-autosignr::credentials:
+autosignr::accounts_aws:
   - name: Amazon Account 1
-    type: aws
-    key_id: >
+    key: >
       ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEw
       DQYJKoZIhvcNAQEBBQAEggEALmhWyfvIloVqx6su2kvYZgSz5r/l27ecFq1P
       x+qjMLdW8zQqwDqizklgsSHN6pffvfwrY6w/2VNtc86G7VyQIjPiaYF1fMQB
@@ -69,7 +67,7 @@ autosignr::credentials:
       sO8tK1iaqyCvwa0B0PXnYYyzjVlvSuE2aZ7DDY6RTw6i9tTbHHCGYS5Erqh5
       +nnH9zA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBCDCjVmOJpPydVD6mBG
       hUMIgBA4+ZaUMHU0DwWvbkKQ6Eq5]
-    secret_key: >
+    secret: >
       ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEw
       DQYJKoZIhvcNAQEBBQAEggEALmhWyfvIloVqx6su2kvYZgSz5r/l27ecFq1P
       x+qjMLdW8zQqwDqizklgsSHN6pffvfwrY6w/2VNtc86G7VyQIjPiaYF1fMQB
