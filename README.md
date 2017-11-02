@@ -44,10 +44,10 @@ class { 'autosignr':
   preshared_keys => ['psk_1', 'psk_1'],
   accounts_aws   => [
     {
-      name       => 'Amazon Account 1',
-      key_id     => 'AWS_KEY_ID',
-      secret_key => 'AWS_SECRET_KEY',
-      regions    => ['us-west-2', 'us-east-1'],
+      name    => 'Amazon Account 1',
+      key     => 'AWS_KEY_ID',
+      secret  => 'AWS_SECRET_KEY',
+      regions => ['us-west-2', 'us-east-1'],
     }
 }
 ~~~
