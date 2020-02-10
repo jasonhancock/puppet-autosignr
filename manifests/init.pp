@@ -20,6 +20,12 @@
 #
 # * `accounts_aws`
 # An array of AWS credentials. See example below
+# 
+# * `accounts_azure`
+# An array of Azure credentials.  See example below
+#
+# * `accounts_gcp`
+# An array of GCP credentials. See example below
 #
 # * `preshared_keys`
 # An array of preshared keys. This is optional and will be omitted from the
@@ -37,7 +43,24 @@
 #          key     => 'AWS_KEY_ID',
 #          secret  => 'AWS_SECRET_KEY',
 #          regions => ['us-west-2', 'us-east-1'],
-#        }
+#        },
+#      ],
+#      accounts_azure =>  [
+#        {
+#          name            => 'Azure Account 1',
+#          client_id       => 'AZURE_CLIENT_ID',
+#          client_secret   => 'AZURE_CLIENT_SECRET',
+#          subscription_id => 'AZURE_SUBSCRIPTION_ID',
+#          tenant_id       => 'AZURE_TENANT_ID',
+#        },
+#      ],
+#      accounts_gcp =>  [
+#        {
+#          name       => 'GCP Account 1',
+#          project_id => 'GCP PROJECT ID',
+#          secret     => 'GCP SECRET JSON in BASE64',
+#        },
+#      ],
 #    }
 #
 # Authors
@@ -55,6 +78,8 @@ class autosignr (
   $cmd_sign = '/opt/puppetlabs/bin/puppet cert sign %s',
   $logfile = '/var/log/autosignr/autosignr.log',
   $accounts_aws = [],
+  $accounts_azure = [],
+  $accounts_gcp = [],
   $preshared_keys = [],
 ) {
 
@@ -68,6 +93,15 @@ class autosignr (
     mode    => '0400',
     require => Package['autosignr'],
     notify  => Service['autosignr'],
+  }
+
+  each($accounts_gcp) | $detail | {
+    file { "/etc/autosignr/gcp_${detail['project_id']}.json":
+      content => base64('decode', $detail['secret']),
+      mode    => '0400',
+      require => Package['autosignr'],
+      notify  => Service['autosignr'],
+    }
   }
 
   service { 'autosignr':

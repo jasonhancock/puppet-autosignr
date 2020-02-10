@@ -5,6 +5,14 @@ accounts_aws:
 <% YAML.dump(@accounts_aws).sub(/.*?\n/, '').split("\n").each do |line| -%>
   <%= line %>
 <% end -%>
+accounts_azure:
+<% YAML.dump(@accounts_azure).sub(/.*?\n/, '').split("\n").each do |line| -%>
+  <%= line %>
+<% end -%>
+accounts_gcp:
+<% YAML.dump(@accounts_gcp).sub(/.*?\n/, '').split("\n").each do |line| -%>
+  <%= line %>
+<% end -%>
 <% if @preshared_keys.length %>preshared_keys:
   <%- @preshared_keys.each do |psk| -%>
   - <%= psk %>
