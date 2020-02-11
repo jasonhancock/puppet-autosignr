@@ -10,9 +10,11 @@ accounts_azure:
   <%= line %>
 <% end -%>
 accounts_gcp:
-<% YAML.dump(@accounts_gcp).sub(/.*?\n/, '').split("\n").each do |line| -%>
-  <%= line %>
-<% end -%>
+<% @accounts_gcp.each do |v| -%>
+  - name: <%= v['name'] %>
+    project_id: <%= v['project_id'] %>
+    credentials_file: /etc/autosignr/gcp_<%= v['project_id'] %>.json
+<% end %>
 <% if @preshared_keys.length %>preshared_keys:
   <%- @preshared_keys.each do |psk| -%>
   - <%= psk %>

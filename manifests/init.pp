@@ -99,6 +99,7 @@ class autosignr (
     file { "/etc/autosignr/gcp_${detail['project_id']}.json":
       content => base64('decode', $detail['secret']),
       mode    => '0400',
+      before  => File['/etc/autosignr/config.yaml'],
       require => Package['autosignr'],
       notify  => Service['autosignr'],
     }
